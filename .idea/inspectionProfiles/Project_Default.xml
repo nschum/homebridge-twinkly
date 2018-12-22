@@ -1,0 +1,68 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="ES6ConvertModuleExportToExport" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="ES6ConvertRequireIntoImport" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="ES6ConvertToForOf" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ES6ConvertVarToLetConst" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="JSAccessibilityCheck" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSArrowFunctionBracesCanBeRemoved" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSAssignmentUsedAsCondition" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="JSBitwiseOperatorUsage" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSCheckFunctionSignatures" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_minLength" value="3" />
+      <option name="m_maxLength" value="64" />
+    </inspection_tool>
+    <inspection_tool class="JSClosureCompilerSyntax" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSCommentMatchesSignature" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSComparisonWithNaN" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSConstructorReturnsPrimitive" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSDeprecatedSymbols" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSDuplicatedDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSFieldCanBeLocal" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSFunctionExpressionToArrowFunction" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSIgnoredPromiseFromCall" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSImplicitlyInternalDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSJQueryEfficiency" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSLastCommaInArrayLiteral" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSLastCommaInObjectLiteral" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="JSMethodCanBeStatic" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSMismatchedCollectionQueryUpdate" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="queries" value="trace,write" />
+      <option name="updates" value="pop,push,shift,splice,unshift" />
+    </inspection_tool>
+    <inspection_tool class="JSNonASCIINames" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myAllowOnlyAscii" value="true" />
+    </inspection_tool>
+    <inspection_tool class="JSObjectNullOrUndefined" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="JSPotentiallyInvalidConstructorUsage" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="myConsiderUppercaseFunctionsToBeConstructors" value="true" />
+    </inspection_tool>
+    <inspection_tool class="JSPotentiallyInvalidTargetOfIndexedPropertyAccess" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSPotentiallyInvalidUsageOfThis" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSPrimitiveTypeWrapperUsage" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSReferencingMutableVariableFromClosure" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSRemoveUnnecessaryParentheses" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSStringConcatenationToES6Template" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSSuspiciousNameCombination" enabled="false" level="WARNING" enabled_by_default="false">
+      <group names="x,width,left,right" />
+      <group names="y,height,top,bottom" />
+      <exclude classes="Math" />
+    </inspection_tool>
+    <inspection_tool class="JSUndeclaredVariable" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUndefinedPropertyAssignment" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnfilteredForInLoop" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnnecessarySemicolon" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnresolvedFunction" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnresolvedLibraryURL" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnresolvedVariable" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUntypedDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedAssignment" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedGlobalSymbols" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedLocalSymbols" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSValidateJSDoc" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="JSValidateJSON" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="JSValidateTypes" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+  </profile>
+</component>

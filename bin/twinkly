@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const {Twinkly} = require("../lib/Twinkly");
+const commander = require("commander");
+
+let options = commander
+    .option("--ip <address>", "IP address of device")
+    .option("--mode <mode>", "\"off\", \"movie\", or \"demo\"")
+    .parse(process.argv);
+
+console.log(options.argv);
+
+let config = {
+    "ip": options.ip,
+};
+
+let twinkly = new Twinkly(console.log, config);
+
+if (options.mode) {
+    twinkly.setMode(options.mode);
+}

@@ -1,0 +1,38 @@
+{
+  "name": "homebridge-twinkly",
+  "version": "0.1.0",
+  "description": "Homebridge plugin for Twinkly christmas lights",
+  "main": "index.js",
+  "bin": {
+    "twinkly": "bin/twinkly"
+  },
+  "dependencies": {
+    "request": "^2.81.0",
+    "commander": "^2.19.0"
+  },
+  "devDependencies": {
+    "homebridge": "^0.4.32"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nschum/homebridge-twinkly.git"
+  },
+  "keywords": [
+    "homebrige",
+    "twinkly",
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=8.12.0",
+    "homebridge": ">=0.4.32"
+  },
+  "author": "Nikolaj Schumacher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nschum/homebridge-twinkly/issues"
+  },
+  "homepage": "https://github.com/nschum/homebridge-twinkly#readme"
+}
