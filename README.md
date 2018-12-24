@@ -47,3 +47,7 @@ Blink:
 ```
 twinkly --ip 192.168.4.1 -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
 ```
+
+## Acknowledgements
+
+Thanks to Pavol Babinčák for [documenting](https://xled.readthedocs.io/en/latest/) the private API.
