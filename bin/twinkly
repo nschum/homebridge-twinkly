@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+// Examples
+// Turn on: twinkly --ip 192.168.4.1 --mode movie
+// Turn off: twinkly --ip 192.168.4.1 --mode off
+// Blink: twinkly --ip 192.168.4.1 -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
 
 const {Twinkly} = require("../lib/Twinkly");
 const commander = require("commander");
@@ -6,16 +10,63 @@ const commander = require("commander");
 let options = commander
     .option("--ip <address>", "IP address of device")
     .option("--mode <mode>", "\"off\", \"movie\", or \"demo\"")
+    .option("-c, --color <color>", "RGB or RGW, e.g. FF0000 or 255,0,0", collect, [])
+    .option("-e, --effect <effect>", "blink or loop")
+    .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
     .parse(process.argv);
 
-console.log(options.argv);
 
+let color = options.color ? parseColors(options.color) : null;
+if (options.color && !color) {
+    return 1;
+}
+if (!options.ip) {
+    console.error("No IP address specified");
+    return 1;
+}
+let delay = options.delay;
 let config = {
     "ip": options.ip,
 };
 
 let twinkly = new Twinkly(console.log, config);
 
-if (options.mode) {
+if (color) {
+    let promise;
+    if (options.effect === "blink") {
+        promise = twinkly.setBlinkingColors(color, delay);
+    } else if (options.effect === "loop") {
+        promise = twinkly.setLoopingColors(color, delay);
+    } else {
+        promise = twinkly.setColors(color);
+    }
+    promise.then(() => twinkly.setMode("movie"));
+} else if (options.mode) {
     twinkly.setMode(options.mode);
+}
+
+function collect(val, list) {
+    list.push(val);
+    return list;
+}
+
+function parseColors(strings) {
+    let array = [];
+    for (string of strings) {
+        array.push(parseColor(string));
+    }
+    return array;
+}
+
+function parseColor(string) {
+    let match = string.match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+    if (match) {
+        return [parseInt(match[1], 16), parseInt(match[2], 16), parseInt(match[3], 16)];
+    }
+    match = string.match(/^(\d+),(\d+),(\d+)$/i);
+    if (match) {
+        return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
+    }
+    console.error(`Invalid color format ${string}`);
+    return null;
 }

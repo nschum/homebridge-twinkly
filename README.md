@@ -6,6 +6,8 @@
 
 - Turn Twinkly on or off using Siri or HomeKit automation
 
+A simple command line tool is also included.
+
 ## Setup
 
 First set up [HomeBridge](http://github.com/nfarina/homebridge).
@@ -27,4 +29,21 @@ Install `homebridge-twinkly` using `sudo npm install -g homebridge-twinkly`.
     "ip": "192.168.4.1"
   }]
 }
+```
+
+## Command line
+
+Turn on:
+```
+twinkly --ip 192.168.4.1 --mode movie
+```
+
+Turn off:
+```
+twinkly --ip 192.168.4.1 --mode off
+```
+
+Blink:
+```
+twinkly --ip 192.168.4.1 -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
 ```
