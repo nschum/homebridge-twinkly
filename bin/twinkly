@@ -11,7 +11,7 @@ let options = commander
     .option("--ip <address>", "IP address of device")
     .option("--mode <mode>", "\"off\", \"movie\", or \"demo\"")
     .option("-c, --color <color>", "RGB or RGW, e.g. FF0000 or 255,0,0", collect, [])
-    .option("-e, --effect <effect>", "blink or loop")
+    .option("-e, --effect <effect>", "blink, twinkle or loop")
     .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
     .parse(process.argv);
 
@@ -35,6 +35,8 @@ if (color) {
     let promise;
     if (options.effect === "blink") {
         promise = twinkly.setBlinkingColors(color, delay);
+    } else if (options.effect === "twinkle") {
+        promise = twinkly.setTwinklingColors(color, delay);
     } else if (options.effect === "loop") {
         promise = twinkly.setLoopingColors(color, delay);
     } else {
