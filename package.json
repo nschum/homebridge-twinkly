@@ -1,6 +1,6 @@
 {
   "name": "homebridge-twinkly",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Homebridge plugin for Twinkly christmas lights",
   "main": "index.js",
   "bin": {
