@@ -34,7 +34,6 @@ class TwinklyHomebridge extends Twinkly {
     }
 
     wrap(promise, callback) {
-        this.log("wrapping");
         promise
             .then(arg => callback(null, arg))
             .catch(error => callback(error));
