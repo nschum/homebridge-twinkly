@@ -18,10 +18,12 @@ let options = commander
 
 let color = options.color ? parseColors(options.color) : null;
 if (options.color && !color) {
+    options.outputHelp();
     return 1;
 }
 if (!options.ip) {
-    console.error("No IP address specified");
+    console.error("No IP address specified\n");
+    options.outputHelp();
     return 1;
 }
 let delay = options.delay;
