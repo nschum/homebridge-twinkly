@@ -10,7 +10,7 @@ const commander = require("commander");
 let options = commander
     .option("--ip <address>", "IP address of device")
     .option("--mode <mode>", "\"off\", \"movie\", or \"demo\"")
-    .option("-c, --color <color>", "RGB or RGW, e.g. FF0000 or 255,0,0", collect, [])
+    .option("-c, --color <color>", "3 or 4 color bytes, e.g. FF0000 or 255,0,0,0", collect, [])
     .option("-e, --effect <effect>", "blink, twinkle or loop")
     .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
     .parse(process.argv);
@@ -63,14 +63,18 @@ function parseColors(strings) {
 }
 
 function parseColor(string) {
-    let match = string.match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+    let match = string.match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})?$/i);
     if (match) {
-        return [parseInt(match[1], 16), parseInt(match[2], 16), parseInt(match[3], 16)];
+        return [parseHex(match[1]), parseHex(match[2]), parseHex(match[3])].concat(match[4] ? [parseHex(match[4])] : []);
     }
-    match = string.match(/^(\d+),(\d+),(\d+)$/i);
+    match = string.match(/^(\d+),(\d+),(\d+)(,(\d+))?$/i);
     if (match) {
-        return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
+        return [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])].concat(match[4] ? [parseInt(match[5])] : []);
     }
     console.error(`Invalid color format ${string}`);
     return null;
+}
+
+function parseHex(string) {
+    return parseInt(string, 16);
 }
