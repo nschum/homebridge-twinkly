@@ -16,8 +16,8 @@ let options = commander
     .parse(process.argv);
 
 
-let color = options.color ? parseColors(options.color) : null;
-if (options.color && !color) {
+let color = options.color.length ? parseColors(options.color) : null;
+if (options.color.length && !color) {
     options.outputHelp();
     return 1;
 }
