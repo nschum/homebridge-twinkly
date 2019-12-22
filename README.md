@@ -4,7 +4,9 @@
 
 ## Features
 
-- Turn Twinkly on or off using Siri or HomeKit automation
+Use Siri or HomeKit automation to:
+- Turn Twinkly on or off
+- Change brightness
 
 A simple command line tool is also included.
 
@@ -52,6 +54,11 @@ twinkly --ip 192.168.4.1 --mode movie
 Turn off:
 ```
 twinkly --ip 192.168.4.1 --mode off
+```
+
+Set brightness to 50%:
+```
+twinkly --ip 192.168.4.1 --brightness 50
 ```
 
 Blink:
