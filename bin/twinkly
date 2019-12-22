@@ -10,12 +10,14 @@ const commander = require("commander");
 let options = commander
     .option("--ip <address>", "IP address of device")
     .option("--mode <mode>", "\"off\", \"movie\", or \"demo\"")
+    .option("-b, --brightness <brightess>", "Brightness between 1 and 100", parseInt)
     .option("-c, --color <color>", "3 or 4 color bytes, e.g. FF0000 or 255,0,0,0", collect, [])
     .option("-e, --effect <effect>", "blink, twinkle or loop")
     .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
     .parse(process.argv);
 
 
+let brightness = options.brightness;
 let color = options.color.length ? parseColors(options.color) : null;
 if (options.color.length && !color) {
     options.outputHelp();
@@ -33,6 +35,9 @@ let config = {
 
 let twinkly = new Twinkly(console.log, config);
 
+if (brightness) {
+    twinkly.setBrightness(brightness);
+}
 if (color) {
     let promise;
     if (options.effect === "blink") {

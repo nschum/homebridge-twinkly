@@ -6,6 +6,7 @@ let Service, Characteristic;
 //     "accessory": "Twinkly",
 //     "name": "Christmas Tree",
 //     "ip": "192.168.4.1",
+//     "allowBrightnessControl": true
 // }]
 
 class TwinklyHomebridge extends Twinkly {
@@ -18,6 +19,7 @@ class TwinklyHomebridge extends Twinkly {
             name = "Twinkly";
         }
         this.name = name;
+        this.isBrightnessControlEnabled = config["allowBrightnessControl"];
     }
 
     getServices() {
@@ -26,11 +28,23 @@ class TwinklyHomebridge extends Twinkly {
         // Can't set Model, SerialNumber, because getServices is synchronous
 
         let lightService = new Service.Lightbulb(this.name);
-        lightService.getCharacteristic(Characteristic.On)
-            .on("get", callback => this.wrap(this.isOn(), callback))
-            .on("set", (value, callback) => this.wrap(this.setOn(value), callback));
+        this.registerCharacteristic(lightService, Characteristic.On,
+            () => this.isOn(),
+            value => value ? this.ensureOn() : this.setOn(false));
+
+        if (this.isBrightnessControlEnabled) {
+            this.registerCharacteristic(lightService, Characteristic.Brightness,
+                () => this.getBrightness(),
+                value => this.setBrightness(value));
+        }
 
         return [lightService, informationService];
+    }
+
+    registerCharacteristic(lightService, characteristic, getter, setter) {
+        lightService.getCharacteristic(characteristic)
+            .on("get", callback => this.wrap(getter(), callback))
+            .on("set", (value, callback) => this.wrap(setter(value), callback));
     }
 
     wrap(promise, callback) {

@@ -16,7 +16,7 @@ Configure Twinkly using the iOS or Android app and make sure it's connected to t
 
 Install `homebridge-twinkly` using `sudo npm install -g homebridge-twinkly`.
 
-## Example config.json
+### Example config.json
 
 ```json
 {
@@ -26,10 +26,21 @@ Install `homebridge-twinkly` using `sudo npm install -g homebridge-twinkly`.
   "accessories": [{
     "accessory": "Twinkly",
     "name": "Christmas Lights",
-    "ip": "192.168.4.1"
+    "ip": "192.168.4.1",
+    "allowBrightnessControl": true
   }]
 }
 ```
+
+### Configuration options
+
+| Value                  | Default       | Description                                                 |
+|------------------------|---------------|-------------------------------------------------------------|
+| accessory              | (required)    | Identifies module and must be `"Twinkly"`                   |
+| name                   | (required)    | The name for light as it will appear in HomeKit             |
+| ip                     | (required)    | The IP address of the lights.                               |
+| allowBrightnessControl | true          | Adds a brightness control instead of a simple on/off switch |
+
 
 ## Command line
 
