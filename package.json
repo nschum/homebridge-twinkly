@@ -7,11 +7,11 @@
     "twinkly": "bin/twinkly"
   },
   "dependencies": {
-    "request": "^2.81.0",
-    "commander": "^2.19.0"
+    "commander": "^6.2.0",
+    "request": "^2.88.1"
   },
   "devDependencies": {
-    "homebridge": "^0.4.32"
+    "homebridge": "^1.1.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,7 +27,7 @@
   ],
   "engines": {
     "node": ">=8.12.0",
-    "homebridge": ">=0.4.32"
+    "homebridge": ">=1.1.6"
   },
   "author": "Nikolaj Schumacher",
   "license": "MIT",
