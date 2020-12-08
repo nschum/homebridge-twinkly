@@ -1,6 +1,6 @@
 # homebridge-twinkly
 
-[HomeBridge](http://github.com/nfarina/homebridge) module for [Twinkly](https://www.twinkly.com) smart christmas lights
+[Homebridge](http://github.com/nfarina/homebridge) module for [Twinkly](https://www.twinkly.com) smart christmas lights
 
 ## Features
 
@@ -12,7 +12,7 @@ A simple command line tool is also included.
 
 ## Setup
 
-First set up [HomeBridge](http://github.com/nfarina/homebridge).
+First set up [Homebridge](http://github.com/nfarina/homebridge).
 
 Configure Twinkly using the iOS or Android app and make sure it's connected to the same network and note the IP address. It might be useful to have your router always assign it the same IP address.
 
