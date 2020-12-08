@@ -35,7 +35,7 @@ Multiple lights are can be added as individual accessories.
 ```json
 {
   "bridge": {
-      ...
+    "name": "…"
   },
   "accessories": [{
     "accessory": "Twinkly",
