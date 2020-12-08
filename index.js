@@ -20,7 +20,7 @@ class TwinklyHomebridge extends Twinkly {
         }
         this.name = name;
         this.isBrightnessControlEnabled = config["allowBrightnessControl"];
-        if (this.isBrightnessControlEnabled === undefined) this.isBrightnessControlEnabled = true;
+        if (this.isBrightnessControlEnabled === undefined) { this.isBrightnessControlEnabled = true; }
     }
 
     getServices() {

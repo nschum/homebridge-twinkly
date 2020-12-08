@@ -1,10 +1,16 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="AssignmentResultUsedJS" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="AssignmentToForLoopParameterJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ChainedEqualityJS" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="ConditionalExpressionWithIdenticalBranchesJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="DuplicateConditionJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ES6ConvertModuleExportToExport" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ES6ConvertRequireIntoImport" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ES6ConvertToForOf" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ES6ConvertVarToLetConst" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="IfStatementWithIdenticalBranchesJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JSAccessibilityCheck" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSArrowFunctionBracesCanBeRemoved" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JSAssignmentUsedAsCondition" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -17,7 +23,6 @@
     <inspection_tool class="JSClosureCompilerSyntax" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSCommentMatchesSignature" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSComparisonWithNaN" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="JSConstructorReturnsPrimitive" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSDeprecatedSymbols" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="JSDuplicatedDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSFieldCanBeLocal" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -35,13 +40,13 @@
     <inspection_tool class="JSNonASCIINames" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myAllowOnlyAscii" value="true" />
     </inspection_tool>
+    <inspection_tool class="JSNonStrictModeUsed" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="JSObjectNullOrUndefined" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="JSPotentiallyInvalidConstructorUsage" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="myConsiderUppercaseFunctionsToBeConstructors" value="true" />
     </inspection_tool>
     <inspection_tool class="JSPotentiallyInvalidTargetOfIndexedPropertyAccess" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSPotentiallyInvalidUsageOfThis" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="JSPrimitiveTypeWrapperUsage" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSReferencingMutableVariableFromClosure" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSRemoveUnnecessaryParentheses" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JSStringConcatenationToES6Template" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -64,5 +69,15 @@
     <inspection_tool class="JSValidateJSDoc" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSValidateJSON" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="JSValidateTypes" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="NestedAssignmentJS" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="NonBlockStatementBodyJS" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="PointlessBitwiseExpressionJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_ignoreExpressionsContainingConstants" value="false" />
+    </inspection_tool>
+    <inspection_tool class="ReplaceAssignmentWithOperatorAssignmentJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="SillyAssignmentJS" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="UnterminatedStatementJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoreSemicolonAtEndOfBlock" value="true" />
+    </inspection_tool>
   </profile>
 </component>

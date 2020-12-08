@@ -36,7 +36,7 @@ let config = {
 let twinkly = new Twinkly(console.log, config);
 
 if (brightness) {
-    twinkly.setBrightness(brightness);
+    twinkly.setBrightness(brightness).then();
 }
 if (color) {
     let promise;
@@ -51,7 +51,7 @@ if (color) {
     }
     promise.then(() => twinkly.setMode("movie"));
 } else if (options.mode) {
-    twinkly.setMode(options.mode);
+    twinkly.setMode(options.mode).then();
 }
 
 function collect(val, list) {
