@@ -11,7 +11,8 @@
     "request": "^2.88.1"
   },
   "devDependencies": {
-    "homebridge": "^1.1.6"
+    "homebridge": "^1.1.6",
+    "homebridge-config-ui-x": "^4.36.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

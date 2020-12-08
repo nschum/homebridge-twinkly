@@ -1,0 +1,32 @@
+{
+  "pluginAlias": "Twinkly",
+  "pluginType": "accessory",
+  "singular": false,
+  "headerDisplay": "Configure Twinkly using the iOS or Android app and make sure it's connected to the same network and note the IP address. It might be useful to have your router always assign it the same IP address.",
+  "footerDisplay": "https://github.com/nschum/homebridge-twinkly",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Twinkly",
+        "required": true
+      },
+      "ip": {
+        "title": "IP Address",
+        "type": "string",
+        "required": true,
+        "description": "The lights' IP address (e.g. 192.168.4.1)"
+      },
+      "allowBrightnessControl": {
+        "title": "Allow brightness control",
+        "type": "boolean",
+        "description": "Shows a brightness slider. Otherwise a simple on/off switch will be shown."
+      }
+    }
+  },
+  "form": null,
+  "display": null
+}
+
