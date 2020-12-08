@@ -16,7 +16,19 @@ First set up [HomeBridge](http://github.com/nfarina/homebridge).
 
 Configure Twinkly using the iOS or Android app and make sure it's connected to the same network and note the IP address. It might be useful to have your router always assign it the same IP address.
 
-Install `homebridge-twinkly` using `sudo npm install -g homebridge-twinkly`.
+Install `homebridge-twinkly` using [homebridge-config-ui-x](https://github.com/oznu/homebridge-config-ui-x) or manually using `sudo npm install -g homebridge-twinkly`.
+
+### Configuration options
+
+| Value                  | Default       | Description                                                 |
+|------------------------|---------------|-------------------------------------------------------------|
+| accessory              | (required)    | Identifies module and must be `"Twinkly"`                   |
+| name                   | (required)    | The name for light as it will appear in HomeKit             |
+| ip                     | (required)    | The IP address of the lights.                               |
+| allowBrightnessControl | true          | Adds a brightness control instead of a simple on/off switch |
+
+The options can be configured using the UI or manually in a config.json.
+Multiple lights are can be added as individual accessories.
 
 ### Example config.json
 
@@ -33,16 +45,6 @@ Install `homebridge-twinkly` using `sudo npm install -g homebridge-twinkly`.
   }]
 }
 ```
-
-### Configuration options
-
-| Value                  | Default       | Description                                                 |
-|------------------------|---------------|-------------------------------------------------------------|
-| accessory              | (required)    | Identifies module and must be `"Twinkly"`                   |
-| name                   | (required)    | The name for light as it will appear in HomeKit             |
-| ip                     | (required)    | The IP address of the lights.                               |
-| allowBrightnessControl | true          | Adds a brightness control instead of a simple on/off switch |
-
 
 ## Command line
 
