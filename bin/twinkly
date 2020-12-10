@@ -14,6 +14,7 @@ let options = commander
     .option("-c, --color <color>", "3 or 4 color bytes, e.g. FF0000 or 255,0,0,0", collect, [])
     .option("-e, --effect <effect>", "blink, twinkle or loop")
     .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
+    .option("-v, --verbose", "Verbose logging", false)
     .parse(process.argv);
 
 
@@ -31,6 +32,7 @@ if (!options.ip) {
 let delay = options.delay;
 let config = {
     "ip": options.ip,
+    "verbose": options.verbose
 };
 
 let twinkly = new Twinkly(console.log, config);

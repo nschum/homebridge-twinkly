@@ -44,8 +44,14 @@ class TwinklyHomebridge extends Twinkly {
 
     registerCharacteristic(lightService, characteristic, getter, setter) {
         lightService.getCharacteristic(characteristic)
-            .on("get", callback => this.wrap(getter(), callback))
-            .on("set", (value, callback) => this.wrap(setter(value), callback));
+            .on("get", callback => {
+                this.logVerbose(`Homebridge requests characteristic "${characteristic.name}"`);
+                this.wrap(getter(), callback);
+            })
+            .on("set", (value, callback) => {
+                this.logVerbose(`Homebridge updates characteristic "${characteristic.name}"`);
+                this.wrap(setter(value), callback);
+            });
     }
 
     wrap(promise, callback) {
