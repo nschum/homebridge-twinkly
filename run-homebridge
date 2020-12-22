@@ -1,0 +1,7 @@
+#!/bin/bash -eu
+
+if [ ! -d config ]; then
+    mkdir config
+fi
+
+npm link && ./node_modules/homebridge/bin/homebridge --user-storage-path .config
