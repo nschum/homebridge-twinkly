@@ -1,6 +1,8 @@
 # homebridge-twinkly
 
-[Homebridge](http://github.com/nfarina/homebridge) module for [Twinkly](https://www.twinkly.com) smart christmas lights
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
+[Homebridge](http://github.com/nfarina/homebridge) module for [Twinkly](https://www.twinkly.com) decorative smart lights
 
 ## Features
 
