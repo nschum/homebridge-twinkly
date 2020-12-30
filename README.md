@@ -14,11 +14,37 @@ A simple command line tool is also included.
 
 ## Setup
 
-First set up [Homebridge](http://github.com/nfarina/homebridge).
+1. First set up [Homebridge](http://github.com/nfarina/homebridge).
+2. Configure Twinkly using the iOS or Android app and make sure it's connected to the same network.
+3. Install `homebridge-twinkly` using [homebridge-config-ui-x](https://github.com/oznu/homebridge-config-ui-x) or manually using `sudo npm install -g homebridge-twinkly`.
 
-Configure Twinkly using the iOS or Android app and make sure it's connected to the same network and note the IP address. It might be useful to have your router always assign it the same IP address.
+### Configuration options
 
-Install `homebridge-twinkly` using [homebridge-config-ui-x](https://github.com/oznu/homebridge-config-ui-x) or manually using `sudo npm install -g homebridge-twinkly`.
+| Value                  | Default       | Description                                                 |
+|------------------------|---------------|-------------------------------------------------------------|
+| allowBrightnessControl | true          | Adds a brightness control instead of a simple on/off switch |
+
+The options can be configured using the UI or manually in a config.json.
+
+### Example config.json
+
+```json
+{
+  "bridge": {
+    "name": "…"
+  },
+  "platforms": [{
+    "platform": "Twinkly",
+    "allowBrightnessControl": true
+  }]
+}
+```
+
+## Setup as accessory (deprecated)
+
+Prior to version 0.4.0 all lights had to be added individually. This is still possible, but is deprecated.
+
+You'll need to find the IP address of each light using the Twinkly app. It might be useful to have your router always assign it the same IP address.
 
 ### Configuration options
 
