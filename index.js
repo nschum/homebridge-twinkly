@@ -16,7 +16,10 @@ let hap, Service, Characteristic;
 
 class TwinklyHomebridge extends Twinkly {
     constructor(log, config) {
-        super(log, config);
+        super(log, config["ip"], config["timeout"] || 500, config["verbose"]);
+
+        this.logVerbose("Configuration:");
+        this.logVerbose(config);
 
         let name = config["name"];
         if (!name) {
@@ -104,45 +107,32 @@ class TwinklyPlatform {
     }
 
     scan() {
-        let discoverer = new Discoverer(this.log, this.timeout, (a, n) => this.checkDiscoveredDevice(a, n));
+        let discoverer = new Discoverer(this.log, this.timeout, device => this.checkDiscoveredDevice(device));
         discoverer.start().then(() => {});
     }
 
-    checkDiscoveredDevice(address, name) {
+    checkDiscoveredDevice(device) {
+        let uuid = device.uuid;
 
-        let device = this.createDevice(address);
-        device.ensureDeviceInfo()
-            .then(() => {
-                let uuid = device.uuid;
+        if (this.devices.get(uuid)) {
+            this.log(`Found known device: ${device}`);
+            return;
+        }
 
-                if (this.devices.get(uuid)) {
-                    this.log(`Found known device: ${device}`);
-                    return;
-                }
+        this.log(`Found unknown device: ${device}`);
 
-                this.log(`Found unknown device: ${device}`);
+        let accessory = this.accessories.get(uuid);
+        if (!accessory) {
+            accessory = new this.api.platformAccessory(device.name, uuid);
+            accessory.addService(Service.Lightbulb, accessory.displayName);
 
-                let accessory = this.accessories.get(uuid);
-                if (!accessory) {
-                    accessory = new this.api.platformAccessory(device.name, uuid);
-                    accessory.addService(Service.Lightbulb, accessory.displayName);
+            this.configureAccessory(accessory);
+            this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+        }
 
-                    this.configureAccessory(accessory);
-                    this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
-                }
+        accessory.context.lastKnownAddress = device.address;
 
-                accessory.context.lastKnownAddress = device.address;
-
-                this.devices.set(uuid, device);
-            });
-    }
-
-    createDevice(address) {
-        let config = {
-            ip: address,
-            timeout: this.timeout
-        };
-        return new Twinkly(this.log, config);
+        this.devices.set(uuid, device);
     }
 
     configureAccessory(accessory) {
@@ -158,7 +148,7 @@ class TwinklyPlatform {
             let lastKnownAddress = accessory.context.lastKnownAddress;
             if (lastKnownAddress) {
                 this.log(`Last known address: ${lastKnownAddress}`);
-                let device = this.createDevice(lastKnownAddress);
+                let device = new Twinkly(this.log, lastKnownAddress, this.timeout, this.verbose);
                 device.uuid = uuid;
                 this.devices.set(uuid, device);
             }
