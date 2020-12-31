@@ -11,6 +11,19 @@
         "title": "Allow brightness control",
         "type": "boolean",
         "description": "Shows a brightness slider. Otherwise a simple on/off switch will be shown."
+      },
+      "removeUnreachableDeviceMinutes": {
+        "title": "Remove unreachable devices after",
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "oneOf": [
+          { "title": "5 minutes", "type": "number", "enum": [5] },
+          { "title": "1 hour", "type": "number", "enum": [60] },
+          { "title": "1 day", "type": "number", "enum": [1440] },
+          { "title": "30 days", "type": "number", "enum": [43200] }
+        ],
+        "description": "“None” means never remove them"
       }
     }
   },

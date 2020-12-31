@@ -4,6 +4,7 @@ const {Discoverer} = require("./lib/Discoverer");
 const PLUGIN_NAME = "homebridge-twinkly";
 const ACCESSORY_NAME = "Twinkly";
 const PLATFORM_NAME = "Twinkly";
+const MS_PER_MINUTE = 60_000;
 
 let hap, Service, Characteristic;
 
@@ -75,7 +76,8 @@ function wrap(promise, callback) {
 
 // "platforms": [{
 //     "platform": "Twinkly",
-//     "allowBrightnessControl": true
+//     "allowBrightnessControl": true,
+//     "removeUnreachableDeviceMinutes": false
 // }]
 
 class TwinklyPlatform {
@@ -87,9 +89,11 @@ class TwinklyPlatform {
 
         this.timeout = config.timeout || 1000;
         this.scanInterval = config.scanInterval || 60_000;
+        this.offlineRemoveTime = (config["removeUnreachableDeviceMinutes"] || 0) * MS_PER_MINUTE;
         this.api = api;
         this.accessories = new Map();
         this.devices = new Map();
+        this.startTime = new Date();
 
         api.on("didFinishLaunching", () => {
             setInterval(() => this.scan(), this.scanInterval);
@@ -107,15 +111,39 @@ class TwinklyPlatform {
     }
 
     scan() {
+        let oldDevices = new Map(this.devices);
+
         let discoverer = new Discoverer(this.log, this.timeout, device => this.checkDiscoveredDevice(device));
-        discoverer.start().then(() => {});
+        discoverer.start().then(devices => {
+            if (this.offlineRemoveTime && devices.length < oldDevices.size) {
+                for (let device of devices) {
+                    oldDevices.delete(device.uuid);
+                }
+                this.log("Unreachable devices:");
+                for (let [uuid, device] of oldDevices) {
+                    let lastSeen = device.lastSeen?.toLocaleString() || "never";
+                    this.log(`- ${device} (last seen: ${lastSeen})`);
+
+                    let accessory = this.accessories.get(uuid);
+                    let timeElapsed = new Date() - (device.lastSeen || this.startTime);
+                    if (accessory && timeElapsed > this.offlineRemoveTime) {
+                        this.log(`Removing unreachable device ${device}`);
+                        this.api.unregisterPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+                        this.accessories.delete(uuid);
+                        this.devices.delete(uuid);
+                    }
+                }
+            }
+        });
     }
 
     checkDiscoveredDevice(device) {
         let uuid = device.uuid;
 
-        if (this.devices.get(uuid)) {
-            this.log(`Found known device: ${device}`);
+        let existingDevice = this.devices.get(uuid);
+        if (existingDevice) {
+            this.log(`Found known device: ${existingDevice}`);
+            existingDevice.lastSeen = new Date();
             return;
         }
 
@@ -131,6 +159,7 @@ class TwinklyPlatform {
         }
 
         accessory.context.lastKnownAddress = device.address;
+        device.lastSeen = new Date();
 
         this.devices.set(uuid, device);
     }

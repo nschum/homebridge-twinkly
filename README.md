@@ -20,9 +20,10 @@ A simple command line tool is also included.
 
 ### Configuration options
 
-| Value                  | Default       | Description                                                 |
-|------------------------|---------------|-------------------------------------------------------------|
-| allowBrightnessControl | true          | Adds a brightness control instead of a simple on/off switch |
+| Value                          | Default       | Description                                                 |
+|--------------------------------|---------------|-------------------------------------------------------------|
+| allowBrightnessControl         | true          | Adds a brightness control instead of a simple on/off switch |
+| removeUnreachableDeviceMinutes | 0             | When to remove unreachable devices (0 meaning never)        |
 
 The options can be configured using the UI or manually in a config.json.
 
@@ -35,7 +36,8 @@ The options can be configured using the UI or manually in a config.json.
   },
   "platforms": [{
     "platform": "Twinkly",
-    "allowBrightnessControl": true
+    "allowBrightnessControl": true,
+    "removeUnreachableDeviceMinutes": 0
   }]
 }
 ```
