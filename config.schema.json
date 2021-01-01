@@ -1,28 +1,29 @@
 {
   "pluginAlias": "Twinkly",
-  "pluginType": "accessory",
-  "singular": false,
-  "headerDisplay": "Configure Twinkly using the iOS or Android app and make sure it's connected to the same network and note the IP address. It might be useful to have your router always assign it the same IP address.",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Configure Twinkly using the iOS or Android app and make sure it's connected to the same network",
   "footerDisplay": "https://github.com/nschum/homebridge-twinkly",
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
-        "type": "string",
-        "default": "Twinkly",
-        "required": true
-      },
-      "ip": {
-        "title": "IP Address",
-        "type": "string",
-        "required": true,
-        "description": "The lights' IP address (e.g. 192.168.4.1)"
-      },
       "allowBrightnessControl": {
         "title": "Allow brightness control",
         "type": "boolean",
         "description": "Shows a brightness slider. Otherwise a simple on/off switch will be shown."
+      },
+      "removeUnreachableDeviceMinutes": {
+        "title": "Remove unreachable devices after",
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "oneOf": [
+          { "title": "5 minutes", "type": "number", "enum": [5] },
+          { "title": "1 hour", "type": "number", "enum": [60] },
+          { "title": "1 day", "type": "number", "enum": [1440] },
+          { "title": "30 days", "type": "number", "enum": [43200] }
+        ],
+        "description": "“None” means never remove them"
       }
     }
   },

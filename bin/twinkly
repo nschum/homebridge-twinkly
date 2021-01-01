@@ -5,6 +5,7 @@
 // Blink: twinkly --ip 192.168.4.1 -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
 
 const {Twinkly} = require("../lib/Twinkly");
+const {Discoverer} = require("../lib/Discoverer");
 const commander = require("commander");
 
 let options = commander
@@ -15,8 +16,17 @@ let options = commander
     .option("-e, --effect <effect>", "blink, twinkle or loop")
     .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
     .option("-v, --verbose", "Verbose logging", false)
+    .option("--timeout <ms>", "Connection timeout", 1000)
+    .option("--discover", "Discover and list Twinkly devices on the local network")
     .parse(process.argv);
 
+if (options.discover) {
+    let discoverer = new Discoverer(console.log, options.timeout, device => console.log(`- ${device}`));
+    discoverer.start().then(() => {});
+    if (!options.ip) {
+        return 0;
+    }
+}
 
 let brightness = options.brightness;
 let color = options.color.length ? parseColors(options.color) : null;
@@ -30,12 +40,8 @@ if (!options.ip) {
     return 1;
 }
 let delay = options.delay;
-let config = {
-    "ip": options.ip,
-    "verbose": options.verbose
-};
 
-let twinkly = new Twinkly(console.log, config);
+let twinkly = new Twinkly(console.log, options.ip, options.timeout, options.verbose);
 
 if (brightness) {
     twinkly.setBrightness(brightness).then();
