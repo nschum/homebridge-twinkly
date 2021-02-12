@@ -1,65 +1,100 @@
 #!/usr/bin/env node
 // Examples
-// Turn on: twinkly --ip 192.168.4.1 --mode movie
-// Turn off: twinkly --ip 192.168.4.1 --mode off
-// Blink: twinkly --ip 192.168.4.1 -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
+// Turn on: twinkly --mode movie
+// Turn off: twinkly --mode off
+// Blink: twinkly -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
 
 const {Twinkly} = require("../lib/Twinkly");
 const {Discoverer} = require("../lib/Discoverer");
 const commander = require("commander");
 
 let options = commander
+    .option("--discover", "Discover and list Twinkly devices on the local network")
     .option("--ip <address>", "IP address of device")
+    .option("--device <name>", "name of device (try to discover IP address)")
+    .option("--uuid <UUID>", "UUID of device (try to discover IP address)")
     .option("--mode <mode>", "\"off\", \"movie\", or \"demo\"")
     .option("-b, --brightness <brightess>", "Brightness between 1 and 100", parseInt)
     .option("-c, --color <color>", "3 or 4 color bytes, e.g. FF0000 or 255,0,0,0", collect, [])
     .option("-e, --effect <effect>", "blink, twinkle or loop")
     .option("-d, --delay <delay>", "Delay in ms between effect frames", parseInt)
     .option("-v, --verbose", "Verbose logging", false)
-    .option("--timeout <ms>", "Connection timeout", 1000)
-    .option("--discover", "Discover and list Twinkly devices on the local network")
+    .option("--timeout <ms>", "Connection timeout", 5000)
     .parse(process.argv);
 
-if (options.discover) {
-    let discoverer = new Discoverer(console.log, options.timeout, device => console.log(`- ${device}`));
-    discoverer.start().then(() => {});
-    if (!options.ip) {
-        return 0;
-    }
-}
-
-let brightness = options.brightness;
-let color = options.color.length ? parseColors(options.color) : null;
-if (options.color.length && !color) {
+if ((options.ip ? 1 : 0) + (options.device ? 1 : 0) + (options.uuid ? 1 : 0) > 1) {
+    console.error("Specify only one of --ip, --device or --uuid\n");
     options.outputHelp();
     return 1;
 }
-if (!options.ip) {
-    console.error("No IP address specified\n");
-    options.outputHelp();
-    return 1;
-}
-let delay = options.delay;
 
-let twinkly = new Twinkly(console.log, options.ip, options.timeout, options.verbose);
+let twinkly = options.ip ? new Twinkly(console.log, options.ip, options.timeout, options.verbose) : null;
 
-if (brightness) {
-    twinkly.setBrightness(brightness).then();
+if (options.discover || !twinkly) {
+    discover(0, options.discover, twinkly ? null : device => run(device, options));
+} else {
+    run(twinkly, options);
 }
-if (color) {
-    let promise;
-    if (options.effect === "blink") {
-        promise = twinkly.setBlinkingColors(color, delay);
-    } else if (options.effect === "twinkle") {
-        promise = twinkly.setTwinklingColors(color, delay);
-    } else if (options.effect === "loop") {
-        promise = twinkly.setLoopingColors(color, delay);
-    } else {
-        promise = twinkly.setColors(color);
+
+function discover(retryCount, isListDevices, deviceCallback) {
+    let discoverer = new Discoverer(console.log, options.timeout, device => {
+        if (deviceCallback && isConfiguredDevice(device)) {
+            if (!isListDevices) {
+                discoverer.cancel();
+            }
+            deviceCallback(device);
+        }
+        if (isListDevices) {
+            console.log(`- ${device}`);
+        }
+    });
+    discoverer.start().then(() => {
+        if (!isListDevices) {
+            if (retryCount === 0) {
+                discover(retryCount + 1, isListDevices, deviceCallback);
+            } else {
+                console.error("Device not found, try specifying --ip argument\n");
+                return 1;
+            }
+        }
+    });
+}
+
+function run(twinkly, options) {
+    let brightness = options.brightness;
+    let color = options.color.length ? parseColors(options.color) : null;
+    if (options.color.length && !color) {
+        options.outputHelp();
+        return 1;
     }
-    promise.then(() => twinkly.setMode("movie"));
-} else if (options.mode) {
-    twinkly.setMode(options.mode).then();
+
+    let delay = options.delay;
+
+    if (brightness) {
+        twinkly.setBrightness(brightness).then();
+    }
+    if (color) {
+        let promise;
+        if (options.effect === "blink") {
+            promise = twinkly.setBlinkingColors(color, delay);
+        } else if (options.effect === "twinkle") {
+            promise = twinkly.setTwinklingColors(color, delay);
+        } else if (options.effect === "loop") {
+            promise = twinkly.setLoopingColors(color, delay);
+        } else {
+            promise = twinkly.setColors(color);
+        }
+        promise.then(() => twinkly.setMode("movie"));
+    } else if (options.mode) {
+        twinkly.setMode(options.mode).then();
+    }
+}
+
+function isConfiguredDevice(device) {
+    if (!options.uuid && !options.device && !options.uuid) {
+        return true; // any device
+    }
+    return device.name === options.device || device.uuid === options.uuid;
 }
 
 function collect(val, list) {

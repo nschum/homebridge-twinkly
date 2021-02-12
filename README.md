@@ -80,22 +80,22 @@ Multiple lights are can be added as individual accessories.
 
 Turn on:
 ```
-twinkly --ip 192.168.4.1 --mode movie
+twinkly --mode movie
 ```
 
 Turn off:
 ```
-twinkly --ip 192.168.4.1 --mode off
+twinkly --mode off
 ```
 
 Set brightness to 50%:
 ```
-twinkly --ip 192.168.4.1 --brightness 50
+twinkly --brightness 50
 ```
 
 Blink:
 ```
-twinkly --ip 192.168.4.1 -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
+twinkly -c 128,0,0 -c 0,255,0 -c 64,0,6 --effect blink --delay 500
 ```
 
 ## Acknowledgements
