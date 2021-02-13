@@ -37,7 +37,7 @@ if (options.discover || !twinkly) {
 }
 
 function discover(retryCount, isListDevices, deviceCallback) {
-    let discoverer = new Discoverer(console.log, options.timeout, device => {
+    let discoverer = new Discoverer(console.log, options.verbose, options.timeout, device => {
         if (deviceCallback && isConfiguredDevice(device)) {
             if (!isListDevices) {
                 discoverer.cancel();

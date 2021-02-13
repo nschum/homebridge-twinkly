@@ -87,6 +87,7 @@ class TwinklyPlatform {
         this.isBrightnessControlEnabled = config["allowBrightnessControl"];
         if (this.isBrightnessControlEnabled === undefined) { this.isBrightnessControlEnabled = true; }
 
+        this.verbose = config.verbose;
         this.timeout = config.timeout || 1000;
         this.scanInterval = config.scanInterval || 60_000;
         this.offlineRemoveTime = (config["removeUnreachableDeviceMinutes"] || 0) * MS_PER_MINUTE;
@@ -113,7 +114,7 @@ class TwinklyPlatform {
     scan() {
         let oldDevices = new Map(this.devices);
 
-        let discoverer = new Discoverer(this.log, this.timeout, device => this.checkDiscoveredDevice(device));
+        let discoverer = new Discoverer(this.log, this.verbose, this.timeout, device => this.checkDiscoveredDevice(device));
         discoverer.start().then(devices => {
             if (this.offlineRemoveTime && devices.length < oldDevices.size) {
                 for (let device of devices) {
