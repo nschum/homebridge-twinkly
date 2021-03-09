@@ -2,12 +2,12 @@
 
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
 
-[Homebridge](http://github.com/nfarina/homebridge) module for [Twinkly](https://www.twinkly.com) decorative smart lights
+Unofficial [Homebridge](http://github.com/nfarina/homebridge) plugin for [Twinkly](https://www.twinkly.com) decorative smart lights
 
 ## Features
 
 Use Siri or HomeKit automation to:
-- Turn Twinkly on or off
+- Turn lights on or off
 - Change brightness
 
 A simple command line tool is also included.
@@ -44,7 +44,7 @@ The options can be configured using the UI or manually in a config.json.
 
 ## Setup as accessory (deprecated)
 
-Prior to version 0.4.0 all lights had to be added individually. This is still possible, but is deprecated.
+Prior to version 0.4.0 all lights had to be added individually. This is still possible, but is deprecated. Use this if device discovery doesn't work in your network.
 
 You'll need to find the IP address of each light using the Twinkly app. It might be useful to have your router always assign it the same IP address.
 
@@ -77,6 +77,11 @@ Multiple lights are can be added as individual accessories.
 ```
 
 ## Command line
+
+Discover devices on network:
+```
+twinkly --discover
+```
 
 Turn on:
 ```
