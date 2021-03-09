@@ -4,4 +4,4 @@ if [ ! -d config ]; then
     mkdir config
 fi
 
-npm link && ./node_modules/homebridge/bin/homebridge --user-storage-path .config
+npm link && ./node_modules/homebridge/bin/homebridge --debug --user-storage-path .config
