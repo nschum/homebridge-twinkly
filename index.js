@@ -57,6 +57,8 @@ class TwinklyHomebridge extends Twinkly {
 }
 
 function registerCharacteristic(lightService, characteristic, log, getter, setter) {
+    // TODO: Migrate to promise-based API when requiring minimum version 1.3.0 of homebridge
+    // https://developers.homebridge.io/#/api/characteristics
     lightService.getCharacteristic(characteristic)
         .on(hap.CharacteristicEventTypes.GET, callback => {
             log(`Homebridge requests characteristic "${characteristic.name}"`);
@@ -64,13 +66,13 @@ function registerCharacteristic(lightService, characteristic, log, getter, sette
         })
         .on(hap.CharacteristicEventTypes.SET, (value, callback) => {
             log(`Homebridge updates characteristic "${characteristic.name}"`);
-            wrap(setter(value), callback);
+            wrap(setter(value), callback, true);
         });
 }
 
-function wrap(promise, callback) {
+function wrap(promise, callback, isSet = false) {
     promise
-        .then(arg => callback(null, arg))
+        .then(arg => callback(null, isSet ? null : arg))
         .catch(error => callback(error));
 }
 
