@@ -146,8 +146,12 @@ class TwinklyPlatform {
         let existingDevice = this.devices.get(uuid);
         if (existingDevice) {
             this.log(`Found known device: ${existingDevice}`);
-            existingDevice.lastSeen = new Date();
-            return;
+            if (existingDevice.address !== device.address) {
+                this.log(`IP address changed to ${device.address}`);
+            } else {
+                existingDevice.lastSeen = new Date();
+                return;
+            }
         }
 
         this.log(`Found unknown device: ${device}`);
