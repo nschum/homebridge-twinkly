@@ -12,7 +12,8 @@ let hap, Service, Characteristic;
 //     "accessory": "Twinkly",
 //     "name": "Christmas Tree",
 //     "ip": "192.168.4.1",
-//     "allowBrightnessControl": true
+//     "allowBrightnessControl": true,
+//     "allowColorControl": true
 // }]
 
 class TwinklyHomebridge extends Twinkly {
@@ -30,6 +31,8 @@ class TwinklyHomebridge extends Twinkly {
         this.name = name;
         this.isBrightnessControlEnabled = config["allowBrightnessControl"];
         if (this.isBrightnessControlEnabled === undefined) { this.isBrightnessControlEnabled = true; }
+        this.isColorControlEnabled = config["allowColorControl"];
+        if (this.isColorControlEnabled === undefined) { this.isColorControlEnabled = false; }
     }
 
     getServices() {
@@ -46,6 +49,15 @@ class TwinklyHomebridge extends Twinkly {
             this.registerCharacteristic(lightService, Characteristic.Brightness,
                 () => this.getBrightness(),
                 value => this.setBrightness(value));
+        }
+
+        if (this.isColorControlEnabled) {
+            this.registerCharacteristic(lightService, Characteristic.Hue,
+                () => this.getHue(),
+                value => this.setHue(value));
+            this.registerCharacteristic(lightService, Characteristic.Saturation,
+                () => this.getSaturation(),
+                value => this.setSaturation(value));
         }
 
         return [lightService, informationService];
@@ -79,6 +91,7 @@ function wrap(promise, callback, isSet = false) {
 // "platforms": [{
 //     "platform": "Twinkly",
 //     "allowBrightnessControl": true,
+//     "allowColorControl": true,
 //     "removeUnreachableDeviceMinutes": false
 // }]
 
@@ -88,6 +101,9 @@ class TwinklyPlatform {
 
         this.isBrightnessControlEnabled = config["allowBrightnessControl"];
         if (this.isBrightnessControlEnabled === undefined) { this.isBrightnessControlEnabled = true; }
+
+        this.isColorControlEnabled = config["allowColorControl"];
+        if (this.isColorControlEnabled === undefined) { this.isColorControlEnabled = true; }
 
         this.verbose = config.verbose;
         this.timeout = config.timeout || 1000;
@@ -211,6 +227,18 @@ class TwinklyPlatform {
             this.registerCharacteristic(uuid, lightService, Characteristic.Brightness,
                 device => device.getBrightness(),
                 (device, value) => device.setBrightness(value));
+        }
+        
+        if (this.isColorControlEnabled) {
+            this.registerCharacteristic(uuid, lightService, Characteristic.Hue,
+                device => device.getHue(),
+                (device, value) => device.setHue(value));
+        }
+
+        if (this.isColorControlEnabled) {
+            this.registerCharacteristic(uuid, lightService, Characteristic.Saturation,
+                device => device.getSaturation(),
+                (device, value) => device.setSaturation(value));
         }
 
         this.accessories.set(uuid, accessory);
