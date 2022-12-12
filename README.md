@@ -9,6 +9,7 @@ Unofficial [Homebridge](http://github.com/nfarina/homebridge) plugin for [Twinkl
 Use Siri or HomeKit automation to:
 - Turn lights on or off
 - Change brightness
+- Change the color
 
 A simple command line tool is also included.
 
@@ -23,6 +24,7 @@ A simple command line tool is also included.
 | Value                          | Default       | Description                                                 |
 |--------------------------------|---------------|-------------------------------------------------------------|
 | allowBrightnessControl         | true          | Adds a brightness control instead of a simple on/off switch |
+| allowColorControl              | true          | Adds a color picker/wheel to the brightness control slider  |
 | removeUnreachableDeviceMinutes | 0             | When to remove unreachable devices (0 meaning never)        |
 
 The options can be configured using the UI or manually in a config.json.
@@ -37,6 +39,7 @@ The options can be configured using the UI or manually in a config.json.
   "platforms": [{
     "platform": "Twinkly",
     "allowBrightnessControl": true,
+    "allowColorControl": true,
     "removeUnreachableDeviceMinutes": 0
   }]
 }
@@ -56,6 +59,7 @@ You'll need to find the IP address of each light using the Twinkly app. It might
 | name                   | (required)    | The name for light as it will appear in HomeKit             |
 | ip                     | (required)    | The IP address of the lights.                               |
 | allowBrightnessControl | true          | Adds a brightness control instead of a simple on/off switch |
+| allowColorControl      | true          | Adds a color picker/wheel to the brightness control slider  |
 
 The options can be configured using the UI or manually in a config.json.
 Multiple lights are can be added as individual accessories.
@@ -72,6 +76,7 @@ Multiple lights are can be added as individual accessories.
     "name": "Christmas Lights",
     "ip": "192.168.4.1",
     "allowBrightnessControl": true
+    "allowColorControl": true
   }]
 }
 ```
