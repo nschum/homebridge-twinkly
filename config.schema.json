@@ -12,6 +12,11 @@
         "type": "boolean",
         "description": "Shows a brightness slider. Otherwise a simple on/off switch will be shown."
       },
+      "allowColorControl": {
+        "title": "Allow color control",
+        "type": "boolean",
+        "description": "Shows a color controls."
+      },
       "removeUnreachableDeviceMinutes": {
         "title": "Remove unreachable devices after",
         "type": "integer",
